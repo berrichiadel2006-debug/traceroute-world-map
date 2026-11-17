@@ -1,0 +1,23 @@
+traceroute vers www.kth.se (130.237.28.40), 30 sauts max, 3 sondes par TTL
+ 1  192.168.1.1  (192.168.1.1)  5.4 ms  2.9 ms  1.5 ms
+ 2  41.97.0.1  (41.97.0.1)  143.9 ms  4.3 ms  5.1 ms
+ 3  10.104.31.9  (10.104.31.9)  3.9 ms  6.8 ms  8.5 ms
+ 4  172.20.31.202  (172.20.31.202)  6.1 ms  15.6 ms  5.5 ms
+ 5  212.133.87.205  (212.133.87.205)  25.6 ms  26.2 ms  30.7 ms
+ 6  4.68.110.62  (1299-3356-mad.sp.lumen.tech)  *  27.6 ms  46.6 ms
+ 7  62.115.123.220  (prs-bb2-link.ip.twelve99.net)  74.6 ms  97.5 ms  63.9 ms
+ 8  62.115.122.139  (ffm-bb2-link.ip.twelve99.net)  63.5 ms  66.2 ms  63.6 ms
+ 9  62.115.114.94  (kbn-bb6-link.ip.twelve99.net)  70.9 ms  77.2 ms  69.0 ms
+10  62.115.136.231  (kbn-b4-link.ip.twelve99.net)  60.1 ms  57.0 ms  57.2 ms
+11  62.115.11.78  (nordunet-ic-358161.ip.twelve99-cust.net)  65.9 ms  61.0 ms  82.0 ms
+12  109.105.102.105  (mcen1-r11.sunet.se)  64.0 ms  61.2 ms  69.4 ms
+13  86.104.202.102  (lund-lnd88-r11.sunet.se)  63.1 ms  61.4 ms  76.1 ms
+14  86.104.202.109  (vaxjo-vxj-r11.sunet.se)  71.3 ms  66.2 ms  141.6 ms
+15  86.104.202.54  (jonkoping-jkg-r11.sunet.se)  95.8 ms  627.5 ms  185.1 ms
+16  86.104.202.57  (linkoping-lin3-r11.sunet.se)  85.3 ms  85.8 ms  72.4 ms
+17  86.104.202.97  (norrkoping-nkg188-r11.sunet.se)  91.1 ms  70.8 ms  70.7 ms
+18  86.104.203.69  (stockholm-sthb-r12.sunet.se)  74.5 ms  73.0 ms  70.0 ms
+19  86.104.203.72  (stockholm-kth-r21.sunet.se)  73.7 ms  70.7 ms  71.3 ms
+20  130.242.64.29  (sunet-gw1.kth.se)  95.9 ms  72.4 ms  70.5 ms
+21  130.237.211.125  (vss4-cn7-p2p.gw.kth.se)  72.4 ms  75.0 ms  74.4 ms
+22  130.237.28.40  (ns-vip-01.sys.kth.se)  74.3 ms  68.0 ms  67.7 ms

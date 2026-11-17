@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Path to www.anu.edu.au (130.56.67.33)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body { font-family: sans-serif; margin: 0 16px 16px; }
+  #map { height: 520px; border: 1px solid #999; }
+  table { border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+  td, th { border: 1px solid #bbb; padding: 3px 8px; text-align: left; }
+  .bad { color: #b00; }
+  .legend span { display: inline-block; width: 12px; height: 12px; border-radius: 6px; margin: 0 4px 0 12px; }
+</style></head><body>
+<h2>Path to www.anu.edu.au (130.56.67.33)</h2>
+<p class="legend"><span style="background:#2a2"></span>source
+<span style="background:#27c"></span>router <span style="background:#d22"></span>destination
+<span style="background:#e80"></span>impossible position (too far for the RTT)</p>
+<div id="map"></div>
+<table id="hops"><tr><th>TTL</th><th>IP address</th><th>RTT (ms)</th><th>Place</th><th>AS</th><th>Note</th></tr></table>
+<script>
+const points = [{"kind": "source", "label": "Source", "ip": "you", "lat": 35.7, "lon": -0.63, "place": "", "as": "", "rtt": null, "note": ""}, {"kind": "router", "label": "Hop 2", "ip": "41.97.0.1", "lat": 35.3414, "lon": -1.0478, "place": "Ain Temouchent, Algeria", "as": "AS36947 Telecom Algeria", "rtt": 16.5434000082314, "note": ""}, {"kind": "router", "label": "Hop 7", "ip": "80.84.23.86", "lat": 50.8476, "lon": 4.35717, "place": "Brussels, Belgium", "as": "AS6774 Belgacom International Carrier Services SA", "rtt": 50.35349998797756, "note": ""}, {"kind": "router", "label": "Hop 11", "ip": "138.44.172.29", "lat": -35.2828, "lon": 149.1283, "place": "Canberra, Australia", "as": "AS7575 Australian Academic and Research Network (AARNet)", "rtt": 277.8921999997692, "note": ""}, {"kind": "router", "label": "Hop 12", "ip": "150.203.201.33", "lat": -35.2828, "lon": 149.1283, "place": "Canberra, Australia", "as": "AS7575 Australian Academic and Research Network (AARNet)", "rtt": 286.44789999816567, "note": ""}, {"kind": "destination", "label": "Hop 13", "ip": "130.56.67.33", "lat": -35.2828, "lon": 149.1283, "place": "Canberra, Australia", "as": "AS7575 Australian Academic and Research Network (AARNet)", "rtt": 317.331500002183, "note": ""}], rows = [{"ttl": 1, "ip": "192.168.1.1", "rtt": 47.81830000865739, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 2, "ip": "41.97.0.1", "rtt": 16.5434000082314, "place": "Ain Temouchent, Algeria", "as": "AS36947 Telecom Algeria", "note": ""}, {"ttl": 3, "ip": "10.104.31.21", "rtt": 109.60640000121202, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 4, "ip": "*", "rtt": null, "place": "", "as": "", "note": "no reply"}, {"ttl": 5, "ip": "172.20.31.202", "rtt": 11.405600002035499, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 6, "ip": "172.17.123.70", "rtt": 21.463900004164316, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 7, "ip": "80.84.23.86", "rtt": 50.35349998797756, "place": "Brussels, Belgium", "as": "AS6774 Belgacom International Carrier Services SA", "note": ""}, {"ttl": 8, "ip": "*", "rtt": null, "place": "", "as": "", "note": "no reply"}, {"ttl": 9, "ip": "*", "rtt": null, "place": "", "as": "", "note": "no reply"}, {"ttl": 10, "ip": "*", "rtt": null, "place": "", "as": "", "note": "no reply"}, {"ttl": 11, "ip": "138.44.172.29", "rtt": 277.8921999997692, "place": "Canberra, Australia", "as": "AS7575 Australian Academic and Research Network (AARNet)", "note": ""}, {"ttl": 12, "ip": "150.203.201.33", "rtt": 286.44789999816567, "place": "Canberra, Australia", "as": "AS7575 Australian Academic and Research Network (AARNet)", "note": ""}, {"ttl": 13, "ip": "130.56.67.33", "rtt": 317.331500002183, "place": "Canberra, Australia", "as": "AS7575 Australian Academic and Research Network (AARNet)", "note": ""}];
+const colour = {source: "#2a2", router: "#27c", destination: "#d22", wrong: "#e80"};
+const map = L.map("map").setView([30, 10], 2);
+// Esri tiles: they work when the page is opened from a file (OpenStreetMap tiles are blocked then)
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+  {maxZoom: 18, attribution: "Tiles &copy; Esri"}).addTo(map);
+const line = points.map(p => [p.lat, p.lon]);
+// routers first, so that the source and the destination are drawn on top
+const order = points.filter(p => p.kind === "router").concat(points.filter(p => p.kind !== "router"));
+for (const p of order) {
+  const c = p.note ? colour.wrong : colour[p.kind];
+  L.circleMarker([p.lat, p.lon], {radius: p.kind === "router" ? 6 : 9, color: c, fillOpacity: 0.8})
+   .bindPopup("<b>" + p.label + "</b><br>" + p.ip + "<br>" + p.place + "<br>" + p.as +
+              (p.rtt !== null ? "<br>RTT: " + p.rtt + " ms" : "") +
+              (p.note ? "<br><span class='bad'>" + p.note + "</span>" : ""))
+   .bindTooltip(p.label).addTo(map);
+}
+if (line.length > 1) { const pl = L.polyline(line, {color: "#555"}).addTo(map); map.fitBounds(pl.getBounds().pad(0.2)); }
+const t = document.getElementById("hops");
+for (const r of rows) {
+  const tr = t.insertRow();
+  for (const v of [r.ttl, r.ip, r.rtt === null ? "*" : r.rtt, r.place, r.as]) tr.insertCell().textContent = v;
+  const c = tr.insertCell(); c.textContent = r.note; c.className = "bad";
+}
+</script></body></html>

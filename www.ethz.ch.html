@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Path to www.ethz.ch (129.132.19.216)</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body { font-family: sans-serif; margin: 0 16px 16px; }
+  #map { height: 520px; border: 1px solid #999; }
+  table { border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+  td, th { border: 1px solid #bbb; padding: 3px 8px; text-align: left; }
+  .bad { color: #b00; }
+  .legend span { display: inline-block; width: 12px; height: 12px; border-radius: 6px; margin: 0 4px 0 12px; }
+</style></head><body>
+<h2>Path to www.ethz.ch (129.132.19.216)</h2>
+<p class="legend"><span style="background:#2a2"></span>source
+<span style="background:#27c"></span>router <span style="background:#d22"></span>destination
+<span style="background:#e80"></span>impossible position (too far for the RTT)</p>
+<div id="map"></div>
+<table id="hops"><tr><th>TTL</th><th>IP address</th><th>RTT (ms)</th><th>Place</th><th>AS</th><th>Note</th></tr></table>
+<script>
+const points = [{"kind": "source", "label": "Source", "ip": "you", "lat": 35.7, "lon": -0.63, "place": "", "as": "", "rtt": null, "note": ""}, {"kind": "router", "label": "Hop 2", "ip": "41.97.0.1", "lat": 35.3414, "lon": -1.0478, "place": "Ain Temouchent, Algeria", "as": "AS36947 Telecom Algeria", "rtt": 2.9174999945098534, "note": ""}, {"kind": "router", "label": "Hop 6", "ip": "80.84.23.86", "lat": 50.8476, "lon": 4.35717, "place": "Brussels, Belgium", "as": "AS6774 Belgacom International Carrier Services SA", "rtt": 28.89040000445675, "note": ""}, {"kind": "router", "label": "Hop 9", "ip": "45.153.83.132", "lat": 50.1169, "lon": 8.6837, "place": "Frankfurt am Main, Germany", "as": "AS5405 Inter.link GmbH", "rtt": 52.37209999177139, "note": ""}, {"kind": "router", "label": "Hop 10", "ip": "94.103.180.75", "lat": 52.5196, "lon": 13.4069, "place": "Berlin, Germany", "as": "AS5405 Inter.link GmbH", "rtt": 52.51559999305755, "note": ""}, {"kind": "router", "label": "Hop 12", "ip": "130.59.37.5", "lat": 47.3769, "lon": 8.54169, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "rtt": 52.534900009050034, "note": ""}, {"kind": "router", "label": "Hop 13", "ip": "192.33.92.1", "lat": 47.3764, "lon": 8.54809, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "rtt": 51.34209999232553, "note": ""}, {"kind": "router", "label": "Hop 14", "ip": "192.33.92.169", "lat": 47.3764, "lon": 8.54809, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "rtt": 51.46519999834709, "note": ""}, {"kind": "destination", "label": "Hop 15", "ip": "129.132.19.216", "lat": 47.3952, "lon": 8.4925, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "rtt": 49.161199989612214, "note": ""}], rows = [{"ttl": 1, "ip": "192.168.1.1", "rtt": 4.514700005529448, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 2, "ip": "41.97.0.1", "rtt": 2.9174999945098534, "place": "Ain Temouchent, Algeria", "as": "AS36947 Telecom Algeria", "note": ""}, {"ttl": 3, "ip": "10.104.31.9", "rtt": 4.200700001092628, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 4, "ip": "172.20.31.202", "rtt": 6.8608000001404434, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 5, "ip": "172.17.123.70", "rtt": 19.275299986475147, "place": "", "as": "", "note": "private address: no position"}, {"ttl": 6, "ip": "80.84.23.86", "rtt": 28.89040000445675, "place": "Brussels, Belgium", "as": "AS6774 Belgacom International Carrier Services SA", "note": ""}, {"ttl": 7, "ip": "*", "rtt": null, "place": "", "as": "", "note": "no reply"}, {"ttl": 8, "ip": "*", "rtt": null, "place": "", "as": "", "note": "no reply"}, {"ttl": 9, "ip": "45.153.83.132", "rtt": 52.37209999177139, "place": "Frankfurt am Main, Germany", "as": "AS5405 Inter.link GmbH", "note": ""}, {"ttl": 10, "ip": "94.103.180.75", "rtt": 52.51559999305755, "place": "Berlin, Germany", "as": "AS5405 Inter.link GmbH", "note": ""}, {"ttl": 11, "ip": "*", "rtt": null, "place": "", "as": "", "note": "no reply"}, {"ttl": 12, "ip": "130.59.37.5", "rtt": 52.534900009050034, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "note": ""}, {"ttl": 13, "ip": "192.33.92.1", "rtt": 51.34209999232553, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "note": ""}, {"ttl": 14, "ip": "192.33.92.169", "rtt": 51.46519999834709, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "note": ""}, {"ttl": 15, "ip": "129.132.19.216", "rtt": 49.161199989612214, "place": "Zurich, Switzerland", "as": "AS559 SWITCH", "note": ""}];
+const colour = {source: "#2a2", router: "#27c", destination: "#d22", wrong: "#e80"};
+const map = L.map("map").setView([30, 10], 2);
+// Esri tiles: they work when the page is opened from a file (OpenStreetMap tiles are blocked then)
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+  {maxZoom: 18, attribution: "Tiles &copy; Esri"}).addTo(map);
+const line = points.map(p => [p.lat, p.lon]);
+// routers first, so that the source and the destination are drawn on top
+const order = points.filter(p => p.kind === "router").concat(points.filter(p => p.kind !== "router"));
+for (const p of order) {
+  const c = p.note ? colour.wrong : colour[p.kind];
+  L.circleMarker([p.lat, p.lon], {radius: p.kind === "router" ? 6 : 9, color: c, fillOpacity: 0.8})
+   .bindPopup("<b>" + p.label + "</b><br>" + p.ip + "<br>" + p.place + "<br>" + p.as +
+              (p.rtt !== null ? "<br>RTT: " + p.rtt + " ms" : "") +
+              (p.note ? "<br><span class='bad'>" + p.note + "</span>" : ""))
+   .bindTooltip(p.label).addTo(map);
+}
+if (line.length > 1) { const pl = L.polyline(line, {color: "#555"}).addTo(map); map.fitBounds(pl.getBounds().pad(0.2)); }
+const t = document.getElementById("hops");
+for (const r of rows) {
+  const tr = t.insertRow();
+  for (const v of [r.ttl, r.ip, r.rtt === null ? "*" : r.rtt, r.place, r.as]) tr.insertCell().textContent = v;
+  const c = tr.insertCell(); c.textContent = r.note; c.className = "bad";
+}
+</script></body></html>

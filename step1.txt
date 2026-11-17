@@ -1,0 +1,8 @@
+hote                   IP               methode   TTL  sauts   RTT ms  km max
+www.usthb.dz           41.106.128.70    TCP:443    52     13     39.1    3912  (TTL lu dans Wireshark)
+www.univ-bejaia.dz     41.111.207.109   ICMP       51     14     24.1    2414
+www.ethz.ch            129.132.19.216   ICMP       51     14     47.4    4738
+www.kth.se             130.237.28.40    ICMP      239     17     68.3    6831
+www.u-tokyo.ac.jp      210.152.243.234  TCP:443    48     17    304.1   30410  (TTL lu dans Wireshark)
+www.anu.edu.au         130.56.67.33     ICMP      237     19    294.3   29429
+www.usp.br             200.144.235.134  TCP:443    51     14    377.5   37754  (TTL lu dans Wireshark)
